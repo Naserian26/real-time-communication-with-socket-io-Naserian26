@@ -7,6 +7,13 @@ const path = require('path');
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
 const fs = require('fs');
+const Sentry = require('@sentry/node');
+const Tracing = require('@sentry/tracing');
+
+Sentry.init({
+  dsn: process.env.SENTRY_DSN, // your DSN from Sentry
+  tracesSampleRate: 1.0,       // monitors performance (adjust to 0.1 in production if needed)
+});
 
 // Load environment variables
 dotenv.config();
