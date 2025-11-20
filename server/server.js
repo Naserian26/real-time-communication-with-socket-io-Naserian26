@@ -57,6 +57,10 @@ const upload = multer({
     cb(null, true);
   },
 });
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'OK', message: 'Server is running' });
+});
 
 // API routes
 app.use('/api/auth', authRoutes);
