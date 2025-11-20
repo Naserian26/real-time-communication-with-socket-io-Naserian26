@@ -16,14 +16,22 @@ jobs:
       with:
         node-version: 20
 
-    - name: Install dependencies
-      run: npm install
+    # --- Backend ---
+    - name: Install server dependencies
+      run: npm install --prefix server
 
-    - name: Run lint
-      run: npm run lint || echo "No lint script, skipping"
+    - name: Run server tests
+      run: npm test --prefix server || echo "No server tests, skipping"
 
-    - name: Run tests
-      run: npm test || echo "No tests, skipping"
+    - name: Build server
+      run: npm run build --prefix server || echo "No build step for server"
 
-    - name: Build app
-      run: npm run build || echo "No build script, skipping"
+    # --- Frontend ---
+    - name: Install client dependencies
+      run: npm install --prefix client
+
+    - name: Run client tests
+      run: npm test --prefix client || echo "No client tests, skipping"
+
+    - name: Build client
+      run: npm run build --prefix client
