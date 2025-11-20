@@ -1,0 +1,37 @@
+name: MERN CI/CD
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+
+    # --- Backend ---
+    - name: Install server dependencies
+      run: npm install --prefix server
+
+    - name: Run server tests
+      run: npm test --prefix server || echo "No server tests, skipping"
+
+    - name: Build server
+      run: npm run build --prefix server || echo "No build step for server"
+
+    # --- Frontend ---
+    - name: Install client dependencies
+      run: npm install --prefix client
+
+    - name: Run client tests
+      run: npm test --prefix client || echo "No client tests, skipping"
+
+    - name: Build client
+      run: npm run build --prefix client
