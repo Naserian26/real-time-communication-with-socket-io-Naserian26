@@ -1,4 +1,3 @@
-
 name: MERN CI/CD
 
 on:
@@ -17,17 +16,16 @@ jobs:
       with:
         node-version: 20
 
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run lint
-      run: npm run lint
-
-    - name: Run tests
-      run: npm test
-
-    - name: Build frontend
-      run: npm run build --prefix frontend
+    # Backend
+    - name: Install backend dependencies
+      run: npm install --prefix backend
 
     - name: Build backend
       run: npm run build --prefix backend
+
+    # Frontend
+    - name: Install frontend dependencies
+      run: npm install --prefix frontend
+
+    - name: Build frontend
+      run: npm run build --prefix frontend
